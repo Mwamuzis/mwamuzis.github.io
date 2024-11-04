@@ -12,3 +12,9 @@ body {
     cursor: pointer;
   }
   
+
+
+  /* styles.css */
+#projectChecklist, #progressChart, #codingTime {
+  display: none; /* Initially hidden until login */
+}
