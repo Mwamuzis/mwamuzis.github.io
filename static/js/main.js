@@ -2,7 +2,7 @@
 
 import { initializeTasks, loadTasks } from './taskManager.js';
 import { setupProgressChart } from './chartManager.js';
-import { startCoding, stopCoding, updateCodingTimeDisplay } from './timeTracker.js';
+import { startCoding, stopCoding, startCoding, updateCodingTimeDisplay } from './timeTracker.js';
 import { clearLocalStorage } from './passwordManager.js';
 
 // Initialize tasks, set up progress chart, and coding time display
