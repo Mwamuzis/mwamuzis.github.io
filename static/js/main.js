@@ -3,41 +3,10 @@
 // Define a password for admin actions (for demonstration, hardcoded here)
 const ADMIN_PASSWORD = "StrongAdminPass123";
 
-// Load tasks into checklist UI
-function loadTasks() {
-  const tasks = getTasks();
-  const checklist = document.getElementById('projectChecklist');
-  checklist.innerHTML = '';
-
-  tasks.forEach((task, index) => {
-    const taskItem = document.createElement('li');
-    taskItem.className = `list-group-item ${task.status === "Done" ? "list-group-item-success" : ""}`;
-    taskItem.textContent = `${task.task} - ${task.status}`;
-    taskItem.onclick = () => toggleTaskStatus(index);
-    checklist.appendChild(taskItem);
-  });
-}
-
-// Toggle task status between "Done" and "Not Started" and save to localStorage
-function toggleTaskStatus(index) {
-  const tasks = getTasks();
-  tasks[index].status = tasks[index].status === "Done" ? "Not Started" : "Done";
-  updateTask(index, tasks[index].status);
-  loadTasks(); // Reload the UI after update
-  setupProgressChart(); // Update the progress chart
-}
-
 // Retrieve tasks from local storage, return empty array if none found
 function getTasks() {
   const tasks = localStorage.getItem('tasks');
   return tasks ? JSON.parse(tasks) : [];
-}
-
-// Update task status in local storage
-function updateTask(index, status) {
-  const tasks = getTasks();
-  tasks[index].status = status;
-  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 // Initialize tasks in local storage if not present
@@ -53,6 +22,37 @@ function initializeTasks() {
     ];
     localStorage.setItem('tasks', JSON.stringify(sampleTasks));
   }
+}
+
+// Load tasks into checklist UI
+function loadTasks() {
+  const tasks = getTasks();
+  const checklist = document.getElementById('projectChecklist');
+  checklist.innerHTML = '';
+
+  tasks.forEach((task, index) => {
+    const taskItem = document.createElement('li');
+    taskItem.className = `list-group-item ${task.status === "Done" ? "list-group-item-success" : ""}`;
+    taskItem.textContent = `${task.task} - ${task.status}`;
+    taskItem.onclick = () => toggleTaskStatus(index);
+    checklist.appendChild(taskItem);
+  });
+}
+
+// Update task status in local storage
+function updateTask(index, status) {
+  const tasks = getTasks();
+  tasks[index].status = status;
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+// Toggle task status between "Done" and "Not Started" and save to localStorage
+function toggleTaskStatus(index) {
+  const tasks = getTasks();
+  tasks[index].status = tasks[index].status === "Done" ? "Not Started" : "Done";
+  updateTask(index, tasks[index].status);
+  loadTasks(); // Reload the UI after update
+  setupProgressChart(); // Update the progress chart
 }
 
 // Chart.js setup for task progress, with check for empty data
@@ -84,6 +84,13 @@ function setupProgressChart() {
 let codingStartTime;
 let codingInterval;
 
+// Function to update coding time display
+function updateCodingTimeDisplay() {
+  const totalCodingTime = parseInt(localStorage.getItem('totalCodingTime') || '0', 10);
+  const hours = Math.floor(totalCodingTime / (1000 * 60 * 60));
+  document.getElementById('codingTime').querySelector('span').textContent = hours;
+}
+
 // Function to start coding time tracking
 function startCoding() {
   codingStartTime = Date.now();
@@ -103,13 +110,6 @@ function stopCoding() {
     codingStartTime = null;
     localStorage.removeItem('codingStartTime');
   }
-}
-
-// Function to update coding time display
-function updateCodingTimeDisplay() {
-  const totalCodingTime = parseInt(localStorage.getItem('totalCodingTime') || '0', 10);
-  const hours = Math.floor(totalCodingTime / (1000 * 60 * 60));
-  document.getElementById('codingTime').querySelector('span').textContent = hours;
 }
 
 // Function to show the password modal for admin actions
