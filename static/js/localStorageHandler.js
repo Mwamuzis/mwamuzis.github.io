@@ -14,7 +14,7 @@ const sampleTasks = [
     }
   }
   
-  // Retrieve tasks from local storage
+
 // Retrieve tasks from local storage, return empty array if none found
 function getTasks() {
     const tasks = localStorage.getItem('tasks');
@@ -29,5 +29,3 @@ function getTasks() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
   
-
-
