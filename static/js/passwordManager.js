@@ -29,6 +29,3 @@ export function clearLocalStorage() {
     updateCodingTimeDisplay();  // Reset coding time display
   });
 }
-
-
-// done
