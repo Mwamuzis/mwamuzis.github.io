@@ -14,18 +14,3 @@ const sampleTasks = [
     }
   }
   
-
-// Retrieve tasks from local storage, return empty array if none found
-function getTasks() {
-    const tasks = localStorage.getItem('tasks');
-    return tasks ? JSON.parse(tasks) : [];
-  }
-  
-  
-  // Update task status in local storage
-  function updateTask(index, status) {
-    const tasks = getTasks();
-    tasks[index].status = status;
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }
-  
