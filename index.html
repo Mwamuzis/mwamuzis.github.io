@@ -23,9 +23,20 @@
       <!-- Project Checklist Section -->
       <div class="col-lg-4">
         <h3 class="text-center">Project Checklist</h3>
+        
+        <!-- Input for Adding New Task -->
+        <div class="input-group mb-3">
+          <input type="text" id="newTaskInput" class="form-control" placeholder="Enter new task">
+          <div class="input-group-append">
+            <button id="addTaskButton" class="btn btn-primary">Add Task</button>
+          </div>
+        </div>
+
+        <!-- List of Tasks with Note Fields -->
         <ul id="projectChecklist" class="list-group">
-          <!-- Dynamically generated task list -->
+          <!-- Dynamically generated task list will appear here -->
         </ul>
+        
         <!-- Button to clear data with password protection -->
         <button id="clearDataButton" class="btn btn-warning mt-4">Clear All Data</button>
       </div>
@@ -75,7 +86,7 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Chart.js -->
-   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Import JavaScript Modules -->
   <script type="module" src="/static/js/main.js"></script>
 </body>
