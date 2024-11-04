@@ -6,10 +6,13 @@ export function setupProgressChart() {
   const completedTasks = tasks.filter(task => task.status === 'Done').length;
 
   const ctx = document.getElementById('progressChart').getContext('2d');
-  if (window.progressChart) {
-    window.progressChart.destroy(); // Destroy previous chart if exists
+
+  // Check if window.progressChart exists and is an instance of Chart before destroying it
+  if (window.progressChart instanceof Chart) {
+    window.progressChart.destroy();
   }
 
+  // Create a new Chart instance and assign it to window.progressChart
   window.progressChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
