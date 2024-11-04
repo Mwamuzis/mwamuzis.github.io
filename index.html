@@ -3,56 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MustafaEcommerce Project</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Mustafa Ecommerce Dashboard</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/index.css">
 </head>
 <body>
-  <header>
-    <h1>MustafaEcommerce</h1>
-    <p>An Express and React-based eCommerce project</p>
-  </header>
-  <section class="diagram-section">
-    <h2>Database Diagram</h2>
-    <img src="https://picsum.photos/200/300" alt="Database Diagram" id="diagram">
-  </section>
-  <section class="project-checklist">
-    <h2>Project Checklist</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Feature/Task</th>
-          <th>Status</th>
-          <th>Notes</th>
-        </tr>
-      </thead>
-      <tbody id="checklist"></tbody>
-    </table>
-  </section>
-  <section class="task-board">
-    <h2>Project Tasks</h2>
-    <div id="taskBoard" class="board">
-      <div class="column" data-status="To-Do">
-        <h3>To-Do</h3>
-        <div class="tasks" id="toDoTasks"></div>
-      </div>
-      <div class="column" data-status="In Progress">
-        <h3>In Progress</h3>
-        <div class="tasks" id="inProgressTasks"></div>
-      </div>
-      <div class="column" data-status="Completed">
-        <h3>Completed</h3>
-        <div class="tasks" id="completedTasks"></div>
-      </div>
-    </div>
 
-    <div class="container" id="gotoprojects">
-      <a href="on_this_projects.html">View On This Project</a>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Mustafa Ecommerce</a>
+    <a class="navbar-brand" href="#">Mustafa </a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <h3 class="text-center">Project Checklist</h3>
+        <ul id="projectChecklist" class="list-group">
+          <!-- Dynamically generated task list -->
+        </ul>
+      </div>
+
+      <div class="col-lg-4">
+        <h3 class="text-center">Task Tracker</h3>
+        <div class="task-progress">
+          <canvas id="progressChart"></canvas>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <h3 class="text-center">Coding Time Tracker</h3>
+        <p id="codingTime" class="text-center">Total Hours: <span>0</span></p>
+        <button id="startTimer" class="btn btn-success">Start Coding</button>
+        <button id="stopTimer" class="btn btn-danger">Stop Coding</button>
+      </div>
     </div>
-  </section>
-  <footer>
-    <p>&copy; MustafaEcommerce Project Showcase</p>
-    <p>Connect: <a href="https://github.com/mwamuzi.git">GitHub</a></p>
-  </footer>
-  <script src="./static/js/script.js"></script>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./static/js/localStoreHandler.js"></script>
+  <script src="/static/js/main.js"></script>
 </body>
 </html>
