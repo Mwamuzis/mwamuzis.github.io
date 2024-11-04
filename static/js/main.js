@@ -17,3 +17,7 @@ document.getElementById('stopTimer').onclick = stopCoding;
 
 // Attach the clearLocalStorage function to the clear button
 document.getElementById('clearDataButton').onclick = clearLocalStorage;
+
+
+
+// done

@@ -51,3 +51,6 @@ function updateTask(index, status) {
   tasks[index].status = status;
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
+
+
+// done

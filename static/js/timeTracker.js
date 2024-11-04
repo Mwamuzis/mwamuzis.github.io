@@ -30,3 +30,6 @@ export function stopCoding() {
     localStorage.removeItem('codingStartTime');
   }
 }
+
+
+// done
