@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MustafaEcommerce Project</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header>
+    <h1>MustafaEcommerce</h1>
+    <p>An Express and React-based eCommerce project</p>
+  </header>
+
+  <!-- Project Diagram -->
+  <section class="diagram-section">
+    <h2>Database Diagram</h2>
+    <img src="assets/images/diagram.png" alt="Database Diagram" id="diagram">
+  </section>
+
+  <!-- Project Checklist -->
+  <section class="project-checklist">
+    <h2>Project Checklist</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Feature/Task</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="checklist">
+        <!-- Checklist items will be populated by JavaScript -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Task Board -->
+  <section class="task-board">
+    <h2>MustafaEcommerce Project Tasks</h2>
+    <div id="taskBoard" class="board">
+      <div class="column" data-status="To-Do">
+        <h3>To-Do</h3>
+        <div class="tasks" id="toDoTasks"></div>
+      </div>
+      <div class="column" data-status="In Progress">
+        <h3>In Progress</h3>
+        <div class="tasks" id="inProgressTasks"></div>
+      </div>
+      <div class="column" data-status="Completed">
+        <h3>Completed</h3>
+        <div class="tasks" id="completedTasks"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; MustafaEcommerce Project Showcase</p>
+    <p>Connect: <a href="https://github.com/mwamuzi.git">GitHub</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
