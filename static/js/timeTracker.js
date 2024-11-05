@@ -29,4 +29,6 @@ export function stopCoding() {
     codingStartTime = null;
     localStorage.removeItem('codingStartTime');
   }
+  // print the function name 
+  console.log("stopCoding");
 }

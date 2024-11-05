@@ -16,6 +16,8 @@ export function requestPassword(callback) {
       document.getElementById('passwordError').style.display = 'block';
     }
   };
+  // print the function name 
+  console.log("requestPassword");
 }
 
 // Protected function to clear all local storage data
@@ -28,4 +30,6 @@ export function clearLocalStorage() {
     setupProgressChart();  // Reinitialize the progress chart with fresh data
     updateCodingTimeDisplay();  // Reset coding time display
   });
+  // print the function name 
+  console.log("clearLocalStorage");
 }

@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
       addTask(taskName);
       document.getElementById('newTaskInput').value = ""; // Clear the input field after adding
     }
+    // print the function name
+    console.log("addTaskButton")
   };
 
   // Attach start and stop timer functions to buttons

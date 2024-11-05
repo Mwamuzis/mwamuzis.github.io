@@ -3,6 +3,7 @@
 // Retrieve tasks from local storage, return empty array if none found
 export function getTasks() {
   const tasks = localStorage.getItem('tasks');
+  console.log("GET TASKS")
   return tasks ? JSON.parse(tasks) : [];
 }
 
@@ -18,14 +19,21 @@ export function initializeTasks() {
       { task: "Deploy project", status: "Not Started", note: "" },
     ];
     localStorage.setItem('tasks', JSON.stringify(sampleTasks));
-  }
+    // print the function name
+    console.log("initializeTasks");
+  
 }
+
+
+// poluate
 
 // Load tasks into checklist UI
 export function loadTasks() {
   const tasks = getTasks();
   const checklist = document.getElementById('projectChecklist');
   checklist.innerHTML = '';
+  // print the function name 
+  console.log("loadTasks");
 
   tasks.forEach((task, index) => {
     const taskItem = document.createElement('li');
@@ -51,6 +59,8 @@ export function toggleTaskStatus(index) {
   updateTask(index, tasks[index]);
   loadTasks();
   setupProgressChart(); // Update the progress chart after modifying tasks
+  // print the function name 
+  console.log("toggleTaskStatus");
 }
 
 // Update task note in local storage
@@ -58,6 +68,8 @@ export function updateTaskNote(index, note) {
   const tasks = getTasks();
   tasks[index].note = note;
   localStorage.setItem('tasks', JSON.stringify(tasks));
+  // print the function name 
+  console.log("updateTaskNote");
 }
 
 // Add a new task
@@ -66,6 +78,8 @@ export function addTask(taskName) {
   tasks.push({ task: taskName, status: "Not Started", note: "" });
   localStorage.setItem('tasks', JSON.stringify(tasks));
   loadTasks();
+  // print the function name 
+  console.log("addTask");
 }
 
 // Update task status in local storage
@@ -73,4 +87,6 @@ function updateTask(index, updatedTask) {
   const tasks = getTasks();
   tasks[index] = updatedTask;
   localStorage.setItem('tasks', JSON.stringify(tasks));
+  // print the function name 
+  console.log("updateTask");
 }

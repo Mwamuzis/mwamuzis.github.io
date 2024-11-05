@@ -10,6 +10,8 @@ export function setupProgressChart() {
   // Check if window.progressChart exists and is an instance of Chart before destroying it
   if (window.progressChart instanceof Chart) {
     window.progressChart.destroy();
+    // print the function name 
+    console.log("setupProgressChart");
   }
 
   // Create a new Chart instance and assign it to window.progressChart
@@ -26,4 +28,7 @@ export function setupProgressChart() {
       responsive: true
     }
   });
+
+  // print the function name 
+  console.log("setupProgressChart");
 }
