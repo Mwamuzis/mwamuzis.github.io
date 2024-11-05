@@ -1,47 +1,24 @@
-const sampleTasks = [
-    {
-        name: "Initialize Express App",
-        status: "Completed",
-        notes: "Ran 'npm run dev' to start development server",
-        startTime: "2023-11-01T09:00", // ISO date format for datetime-local input compatibility
-        endTime: "2023-11-01T10:00"
-    },
-    {
-        name: "Configure MySQL Connection",
-        status: "In Progress",
-        notes: "Connected to MySQL using Sequelize ORM",
-        startTime: "2023-11-02T11:00",
-        endTime: "" // Empty end time since the task is still in progress
-    }
-];
+// Calculate task duration in a human-readable format
+export function taskDurationTime(startTime, endTime) {
+    const startTimeDate = new Date(startTime);
+    const endTimeDate = new Date(endTime);
 
-// Check if local storage is empty before initializing
-if (!localStorage.getItem('tasks')) {
-    localStorage.setItem('tasks', JSON.stringify(sampleTasks));
+    // Calculate the difference in milliseconds
+    const durationMs = endTimeDate - startTimeDate;
+
+    // Check if duration is negative (endTime is before startTime)
+    if (durationMs < 0) return "Invalid time range";
+
+    // Convert milliseconds to time components
+    const days = Math.floor(durationMs / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((durationMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
+
+    // Format the result as a string
+    let durationString = "";
+    if (days > 0) durationString += `${days}d `;
+    if (hours > 0 || days > 0) durationString += `${hours}h `;
+    durationString += `${minutes}m`;
+
+    return durationString.trim(); // Remove any trailing spaces
 }
-
-// Load tasks from local storage when page loads
-function loadTasks() {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const tbody = document.querySelector('#taskTable tbody');
-    tbody.innerHTML = '';
-
-    tasks.forEach((task, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${task.name}</td>
-            <td>${task.status}</td>
-            <td>${task.notes}</td>
-            <td>${task.startTime || 'N/A'}</td>
-            <td>${task.endTime || 'N/A'}</td>
-            <td>${task.taskDuration || "N/A" } 
-            <td>
-                <button class="btn btn-warning btn-sm" onclick="editTask(${index})">Edit</button>
-                <button class="btn btn-danger btn-sm" onclick="deleteTask(${index})">Delete</button>
-            </td>
-        `;
-        tbody.appendChild(row);
-    });
-}
-
-document.addEventListener("DOMContentLoaded", loadTasks);

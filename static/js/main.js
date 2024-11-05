@@ -1,6 +1,34 @@
 // Global variable to track the index of the task being edited
 let currentTaskIndex = null;
 
+// Calculate task duration in a human-readable format
+function taskDurationTime(startTime, endTime) {
+    const startTimeDate = new Date(startTime);
+    const endTimeDate = new Date(endTime);
+
+    // Calculate the difference in milliseconds
+    const durationMs = endTimeDate - startTimeDate;
+
+    // Check if duration is negative (endTime is before startTime)
+    if (durationMs < 0) return "Invalid time range";
+
+    // Convert milliseconds to time components
+    const days = Math.floor(durationMs / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((durationMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
+
+    // Format the result as a string
+    let durationString = "";
+    if (days > 0) durationString += `${days}d `;
+    if (hours > 0 || days > 0) durationString += `${hours}h `;
+    durationString += `${minutes}m`;
+
+    return durationString.trim(); // Remove any trailing spaces
+}
+
+
+
+
 // Load tasks from local storage and display them in the table
 function loadTasks() {
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -15,6 +43,7 @@ function loadTasks() {
             <td>${task.notes}</td>
             <td>${task.startTime || 'N/A'}</td>
             <td>${task.endTime || 'N/A'}</td>
+            <td>${task.taskDuration || "N/A" }</td>
             <td>
                 <button class="btn btn-warning btn-sm" onclick="editTask(${index})">
                     <i class="fas fa-edit"></i> Edit
@@ -43,6 +72,7 @@ function getStatusClass(status) {
     }
 }
 
+
 // Open modal to add a new task or edit an existing one
 function openModal() {
     document.getElementById('taskForm').reset(); // Clear form
@@ -57,24 +87,20 @@ function saveTask() {
     const taskNotes = document.getElementById('taskNotes').value;
     const taskStartTime = document.getElementById('taskStartTime').value;
     const taskEndTime = document.getElementById('taskEndTime').value;
+    const taskDuration = document.getElementById("taskDuration").value;
 
     if (!taskName) {
         alert("Task name is required.");
         return;
     }
 
+
+    // calculate taskDuratio
+
+
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-    if (currentTaskIndex !== null) {
-        // Update the existing task
-        tasks[currentTaskIndex] = {
-            name: taskName,
-            status: taskStatus,
-            notes: taskNotes,
-            startTime: taskStartTime,
-            endTime: taskEndTime,
-        };
-    } else {
+    if (currentTaskIndex === null) {
         // Add a new task
         tasks.push({
             name: taskName,
@@ -82,7 +108,18 @@ function saveTask() {
             notes: taskNotes,
             startTime: taskStartTime,
             endTime: taskEndTime,
+            duration: taskDurationTime()
         });
+    } else {
+        // Update the existing task
+        tasks[currentTaskIndex] = {
+            name: taskName,
+            status: taskStatus,
+            notes: taskNotes,
+            startTime: taskStartTime,
+            endTime: taskEndTime,
+            duration: taskDurationTime()
+        };
     }
 
     // Save updated tasks back to local storage
