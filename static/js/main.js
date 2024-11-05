@@ -1,6 +1,29 @@
 // Load tasks from local storage
+// const sampleTasks = [
+//     {
+//         name: "Initialize Express App",
+//         status: "Completed",
+//         notes: "Ran 'npm run dev' to start development server",
+//         startTime: "2023-11-01T09:00", // ISO date format for datetime-local input compatibility
+//         endTime: "2023-11-01T10:00"
+//     },
+//     {
+//         name: "Configure MySQL Connection",
+//         status: "In Progress",
+//         notes: "Connected to MySQL using Sequelize ORM",
+//         startTime: "2023-11-02T11:00",
+//         endTime: "" // Empty end time since the task is still in progress
+//     }
+// ];
+
+
+
+
+
+
+
 function loadTasks() {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || sampleTasks;
     const tbody = document.querySelector('#taskTable tbody');
     tbody.innerHTML = '';
 
@@ -12,6 +35,9 @@ function loadTasks() {
             <td>${task.notes}</td>
             <td>${task.startTime || 'N/A'}</td>
             <td>${task.endTime || 'N/A'}</td>
+            <td>
+            ${task.taskDuration || "N/A" }
+            </td>
             <td>
                 <button class="btn btn-warning btn-sm" onclick="editTask(${index})">Edit</button>
                 <button class="btn btn-danger btn-sm" onclick="deleteTask(${index})">Delete</button>
@@ -28,8 +54,9 @@ function saveTask() {
     const taskNotes = document.getElementById('taskNotes').value;
     const taskStartTime = document.getElementById('taskStartTime').value;
     const taskEndTime = document.getElementById('taskEndTime').value;
+    const taskDuration = taskEndTime && taskStartTime? new Date(taskEndTime) - new Date(taskStartTime) : "N/A";
 
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || sampleTasks;
 
     tasks.push({
         name: taskName,
@@ -37,6 +64,7 @@ function saveTask() {
         notes: taskNotes,
         startTime: taskStartTime,
         endTime: taskEndTime,
+        taskDuration
     });
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -54,6 +82,7 @@ function editTask(index) {
     document.getElementById('taskNotes').value = task.notes;
     document.getElementById('taskStartTime').value = task.startTime;
     document.getElementById('taskEndTime').value = task.endTime;
+    document.getElementById('taskDuration').innerText = task.taskDuration;
 
     $('#taskModal').modal('show');
 }
