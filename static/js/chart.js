@@ -4,6 +4,8 @@ function updateChart() {
     const completedTasks = tasks.filter(task => task.status === 'Completed').length;
 
     const ctx = document.getElementById('progressChart').getContext('2d');
+    document.getElementById('progressPercentage').innerText = `Progress: ${progress.toFixed(2)}%`;
+
     new Chart(ctx, {
         type: 'doughnut',
         data: {
