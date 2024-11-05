@@ -12,6 +12,7 @@ function loadTasks() {
             <td>${task.notes}</td>
             <td>${task.startTime || 'N/A'}</td>
             <td>${task.endTime || 'N/A'}</td>
+            <td>${task.duration || 'N/A'}</td>
             <td>
                 <button class="btn btn-warning btn-sm" onclick="editTask(${index})">Edit</button>
                 <button class="btn btn-danger btn-sm" onclick="deleteTask(${index})">Delete</button>
@@ -21,6 +22,15 @@ function loadTasks() {
     });
 }
 
+// calculateDuration
+function calculateDuration(startTime, endTime) {
+    const start = new Date(startTime);
+    const end = new Date(endTime);
+    const duration = end.getTime() - start.getTime();
+    return Math.floor(duration / (1000 * 60 * 60 * 24));
+}
+
+
 // Save a new or edited task
 function saveTask() {
     const taskName = document.getElementById('taskName').value;
@@ -28,6 +38,9 @@ function saveTask() {
     const taskNotes = document.getElementById('taskNotes').value;
     const taskStartTime = document.getElementById('taskStartTime').value;
     const taskEndTime = document.getElementById('taskEndTime').value;
+
+    // taskDuration = taskStartTime + taskEndTime
+    const taskDuration = calculateDuration(taskStartTime, taskEndTime);
 
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
@@ -37,6 +50,7 @@ function saveTask() {
         notes: taskNotes,
         startTime: taskStartTime,
         endTime: taskEndTime,
+        duration: taskDuration,
     });
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -54,6 +68,7 @@ function editTask(index) {
     document.getElementById('taskNotes').value = task.notes;
     document.getElementById('taskStartTime').value = task.startTime;
     document.getElementById('taskEndTime').value = task.endTime;
+    document.getElementById('taskDuration').value = task.duration;
 
     $('#taskModal').modal('show');
 }
@@ -67,6 +82,6 @@ function deleteTask(index) {
 }
 
 // Initialize
-$(document).ready(function () {
+$(document).ready(() => {
     loadTasks();
 });
