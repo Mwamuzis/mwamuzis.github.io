@@ -3,21 +3,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MustafaEcommerce Project - On This Project</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Project Checklist</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .btn {
+      padding: 5px 10px;
+      margin: 2px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>On This Project</h1>
-    <p>Insights and details about the MustafaEcommerce project and contributions.</p>
-  </header>
 
-  <!-- GitHub Membership Duration Section -->
-  <section class="github-duration-section">
-    <h2>Your GitHub Membership Duration</h2>
-    <p id="github-duration">Loading GitHub data...</p>
-  </section>
+<h2>Project Checklist</h2>
 
-  <script src="../static/js/loadDataGits.js"></script>
+<table id="checklist">
+  <thead>
+    <tr>
+      <th>Feature/Task</th>
+      <th>Status</th>
+      <th>Notes</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody id="taskBody">
+    <!-- Rows will be populated by JavaScript -->
+  </tbody>
+</table>
+
+<script>
+  // Sample data array for the project checklist
+  const projectTasks = [
+    { feature: "Initialize Express App", status: "Not Started", notes: "", startTime: "", endTime: "" },
+    { feature: "Install Dependencies", status: "Not Started", notes: "", startTime: "", endTime: "" },
+    { feature: "Configure MySQL Connection", status: "Not Started", notes: "", startTime: "", endTime: "" },
+    // Add more tasks as needed
+  ];
+
+  // Load data from local storage, or initialize with default data
+  const loadTasks = () => {
+    const savedTasks = JSON.parse(localStorage.getItem('projectTasks'));
+    return savedTasks ? savedTasks : projectTasks;
+  };
+
+  // Save data to local storage
+  const saveTasks = (tasks) => {
+    localStorage.setItem('projectTasks', JSON.stringify(tasks));
+  };
+
+  // Update table UI based on data
+  const populateTable = () => {
+    const tasks = loadTasks();
+    const taskBody = document.getElementById('taskBody');
+    taskBody.innerHTML = ''; // Clear existing rows
+
+    tasks.forEach((task, index) => {
+      const row = document.createElement('tr');
+
+      row.innerHTML = `
+        <td>${task.feature}</td>
+        <td>
+          <select onchange="updateStatus(${index}, this.value)">
+            <option value="Not Started" ${task.status === 'Not Started' ? 'selected' : ''}>Not Started</option>
+            <option value="In Progress" ${task.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+            <option value="Completed" ${task.status === 'Completed' ? 'selected' : ''}>Completed</option>
+          </select>
+        </td>
+        <td><input type="text" value="${task.notes}" onchange="updateNotes(${index}, this.value)"></td>
+        <td>${task.startTime || '-'}</td>
+        <td>${task.endTime || '-'}</td>
+        <td>
+          <button class="btn" onclick="startTask(${index})">Start</button>
+          <button class="btn" onclick="endTask(${index})">End</button>
+        </td>
+      `;
+      taskBody.appendChild(row);
+    });
+  };
+
+  // Update status in local storage and refresh table
+  const updateStatus = (index, status) => {
+    const tasks = loadTasks();
+    tasks[index].status = status;
+    saveTasks(tasks);
+    populateTable();
+  };
+
+  // Update notes in local storage and refresh table
+  const updateNotes = (index, notes) => {
+    const tasks = loadTasks();
+    tasks[index].notes = notes;
+    saveTasks(tasks);
+  };
+
+  // Record the start time for a task
+  const startTask = (index) => {
+    const tasks = loadTasks();
+    tasks[index].startTime = new Date().toLocaleString();
+    saveTasks(tasks);
+    populateTable();
+  };
+
+  // Record the end time for a task
+  const endTask = (index) => {
+    const tasks = loadTasks();
+    tasks[index].endTime = new Date().toLocaleString();
+    saveTasks(tasks);
+    populateTable();
+  };
+
+  // Initialize the table on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    populateTable();
+  });
+</script>
+
 </body>
 </html>
