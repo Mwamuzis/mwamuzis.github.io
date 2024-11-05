@@ -43,6 +43,7 @@ function saveTask() {
     const taskDuration = calculateDuration(taskStartTime, taskEndTime);
 
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    
 
     tasks.push({
         name: taskName,
