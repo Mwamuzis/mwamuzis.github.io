@@ -34,6 +34,7 @@ function loadTasks() {
             <td>${task.notes}</td>
             <td>${task.startTime || 'N/A'}</td>
             <td>${task.endTime || 'N/A'}</td>
+            <td>${task.taskDuration || "N/A" } 
             <td>
                 <button class="btn btn-warning btn-sm" onclick="editTask(${index})">Edit</button>
                 <button class="btn btn-danger btn-sm" onclick="deleteTask(${index})">Delete</button>
