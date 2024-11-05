@@ -87,7 +87,7 @@ function saveTask() {
     const taskNotes = document.getElementById('taskNotes').value;
     const taskStartTime = document.getElementById('taskStartTime').value;
     const taskEndTime = document.getElementById('taskEndTime').value;
-    const taskDuration = document.getElementById("taskDuration").value;
+    // const taskDuration = document.getElementById("taskDuration").value;
 
     if (!taskName) {
         alert("Task name is required.");
