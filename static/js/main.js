@@ -1,25 +1,5 @@
-// Sample tasks to initialize local storage
-const sampleTasks = [
-    {
-        name: "Initialize Express App",
-        status: "Completed",
-        notes: "Ran 'npm run dev' to start development server",
-        startTime: "2023-11-01T09:00",
-        endTime: "2023-11-01T10:00"
-    },
-    {
-        name: "Configure MySQL Connection",
-        status: "In Progress",
-        notes: "Connected to MySQL using Sequelize ORM",
-        startTime: "2023-11-02T11:00",
-        endTime: ""
-    }
-];
-
-// Initialize local storage with sample tasks if empty
-if (!localStorage.getItem('tasks')) {
-    localStorage.setItem('tasks', JSON.stringify(sampleTasks));
-}
+// Global variable to track the index of the task being edited
+let currentTaskIndex = null;
 
 // Load tasks from local storage and display them in the table
 function loadTasks() {
@@ -66,6 +46,7 @@ function getStatusClass(status) {
 // Open modal to add a new task or edit an existing one
 function openModal() {
     document.getElementById('taskForm').reset(); // Clear form
+    currentTaskIndex = null; // Reset currentTaskIndex for adding a new task
     $('#taskModal').modal('show');
 }
 
@@ -83,17 +64,32 @@ function saveTask() {
     }
 
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    tasks.push({
-        name: taskName,
-        status: taskStatus,
-        notes: taskNotes,
-        startTime: taskStartTime,
-        endTime: taskEndTime,
-    });
 
+    if (currentTaskIndex !== null) {
+        // Update the existing task
+        tasks[currentTaskIndex] = {
+            name: taskName,
+            status: taskStatus,
+            notes: taskNotes,
+            startTime: taskStartTime,
+            endTime: taskEndTime,
+        };
+    } else {
+        // Add a new task
+        tasks.push({
+            name: taskName,
+            status: taskStatus,
+            notes: taskNotes,
+            startTime: taskStartTime,
+            endTime: taskEndTime,
+        });
+    }
+
+    // Save updated tasks back to local storage
     localStorage.setItem('tasks', JSON.stringify(tasks));
     loadTasks();
     $('#taskModal').modal('hide');
+    currentTaskIndex = null; // Reset currentTaskIndex after saving
 }
 
 // Edit an existing task
@@ -108,38 +104,9 @@ function editTask(index) {
     document.getElementById('taskStartTime').value = task.startTime;
     document.getElementById('taskEndTime').value = task.endTime;
 
-    // Save changes
+    // Set the current task index and open the modal
+    currentTaskIndex = index;
     $('#taskModal').modal('show');
-
-    // Override saveTask function temporarily for updating
-    document.querySelector('.btn-custom').onclick = function() {
-        updateTask(index);
-    };
-}
-
-// Update task in local storage after editing
-function updateTask(index) {
-    const taskName = document.getElementById('taskName').value;
-    const taskStatus = document.getElementById('taskStatus').value;
-    const taskNotes = document.getElementById('taskNotes').value;
-    const taskStartTime = document.getElementById('taskStartTime').value;
-    const taskEndTime = document.getElementById('taskEndTime').value;
-
-    const tasks = JSON.parse(localStorage.getItem('tasks'));
-    tasks[index] = {
-        name: taskName,
-        status: taskStatus,
-        notes: taskNotes,
-        startTime: taskStartTime,
-        endTime: taskEndTime,
-    };
-
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    loadTasks();
-    $('#taskModal').modal('hide');
-
-    // Reset save button function
-    document.querySelector('.btn-custom').onclick = saveTask;
 }
 
 // Delete a task
@@ -174,6 +141,7 @@ function updateChart() {
         }
     });
 }
+
 
 // Load tasks and initialize chart on page load
 document.addEventListener("DOMContentLoaded", loadTasks);
