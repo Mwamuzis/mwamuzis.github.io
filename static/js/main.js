@@ -2,17 +2,21 @@
 const sampleTasks = [
     {
         name: "Initialize Express App",
+        Feature : "Future Task name",
         status: "Completed",
         notes: "Ran 'npm run dev' to start development server",
-        startTime: "2023-11-01T09:00", 
+        startTime: "2023-11-01T09:00",
+        endTime: "2023-11-01T10:00",
+        taskDuration : "15min"
     },
     {
         name: "Configure MySQL Connection",
         status: "In Progress",
         notes: "Connected to MySQL using Sequelize ORM",
         startTime: "2023-11-02T11:00",
-        endTime: "" 
-    }
+        endTime: "",
+        taskDuration : "12min" 
+         }
 ];
 
 
@@ -25,7 +29,7 @@ if (!localStorage.getItem('tasks')) {
 
 
 function loadTasks() {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || sampleTasks;
     const tbody = document.querySelector('#taskTable tbody');
     tbody.innerHTML = '';
 

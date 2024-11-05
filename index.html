@@ -3,17 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Checklist</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>MustafaEcommerce Project Checklist</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="/static/css/index.css">
+
 </head>
 <body>
+
 <div class="container mt-5">
-    <h1 class="text-center">MustafaEcommerce Project Checklist</h1>
-    <button class="btn btn-primary mb-3" onclick="openModal()">Add Task</button>
+    <div class="header">
+        <h1><i class="fas fa-tasks"></i> MustafaEcommerce Project Checklist</h1>
+        <p class="lead">Track and manage your project tasks with ease.</p>
+    </div>
+
+    <!-- Add Task Button -->
+    <div class="text-center mb-4">
+        <button class="btn btn-custom" onclick="openModal()">
+            <i class="fas fa-plus-circle"></i> Add New Task
+        </button>
+    </div>
+
+    <!-- Task Table -->
     <div class="table-responsive">
         <table class="table table-bordered" id="taskTable">
-            <thead class="thead-dark">
+            <thead>
                 <tr>
                     <th>Feature/Task</th>
                     <th>Status</th>
@@ -21,7 +39,6 @@
                     <th>Start Time</th>
                     <th>End Time</th>
                     <th>Actions</th>
-                    <th>z</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,15 +46,19 @@
             </tbody>
         </table>
     </div>
-    <canvas id="progressChart" class="mt-4"></canvas>
+
+    <!-- Chart Section -->
+    <div class="chart-container">
+        <canvas id="progressChart" width="400" height="400"></canvas>
+    </div>
 </div>
 
-<!-- Modal -->
+<!-- Task Modal -->
 <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="taskModalLabel">Add/Edit Task</h5>
+                <h5 class="modal-title" id="taskModalLabel"><i class="fas fa-edit"></i> Add/Edit Task</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -51,9 +72,9 @@
                     <div class="form-group">
                         <label for="taskStatus">Status</label>
                         <select class="form-control" id="taskStatus">
-                            <option>Not Started</option>
-                            <option>In Progress</option>
-                            <option>Completed</option>
+                            <option value="Not Started">Not Started</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -68,28 +89,23 @@
                         <label for="taskEndTime">End Time</label>
                         <input type="datetime-local" class="form-control" id="taskEndTime">
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="saveTask()">Save</button>
+                    <button type="button" class="btn btn-custom btn-block" onclick="saveTask()">Save Task</button>
                 </form>
             </div>
         </div>
     </div>
-
-    <div class="container" id="showProgress">
-      <p id="progressPercentage" class="text-center mt-3"></p>
-    </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- jQuery and Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="/static/js/main.js"></script>
-<script src="/static/js/chart.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1"></script>
+
+<!-- Local JavaScript Files -->
+<script src="js/app.js"></script>
+<script src="js/chart.js"></script>
+
 </body>
 </html>
-
-<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="/static/js/chart.js"></script>
-<script src="/static/js/main.js"></script> -->
-
