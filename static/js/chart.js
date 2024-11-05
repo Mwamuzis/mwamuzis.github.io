@@ -2,9 +2,10 @@ function updateChart() {
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     const totalTasks = tasks.length;
     const completedTasks = tasks.filter(task => task.status === 'Completed').length;
-    const progress = totalTasks ? (completedTasks / totalTasks) * 100 : 0;
 
     const ctx = document.getElementById('progressChart').getContext('2d');
+    document.getElementById('progressPercentage').innerText = `Progress: ${progress.toFixed(2)}%`;
+
     new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -20,8 +21,3 @@ function updateChart() {
         }
     });
 }
-
-$(document).ready(function () {
-    loadTasks();
-    updateChart();
-});

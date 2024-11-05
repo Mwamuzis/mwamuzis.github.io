@@ -1,29 +1,31 @@
 // Load tasks from local storage
-// const sampleTasks = [
-//     {
-//         name: "Initialize Express App",
-//         status: "Completed",
-//         notes: "Ran 'npm run dev' to start development server",
-//         startTime: "2023-11-01T09:00", // ISO date format for datetime-local input compatibility
-//         endTime: "2023-11-01T10:00"
-//     },
-//     {
-//         name: "Configure MySQL Connection",
-//         status: "In Progress",
-//         notes: "Connected to MySQL using Sequelize ORM",
-//         startTime: "2023-11-02T11:00",
-//         endTime: "" // Empty end time since the task is still in progress
-//     }
-// ];
+const sampleTasks = [
+    {
+        name: "Initialize Express App",
+        status: "Completed",
+        notes: "Ran 'npm run dev' to start development server",
+        startTime: "2023-11-01T09:00", 
+    },
+    {
+        name: "Configure MySQL Connection",
+        status: "In Progress",
+        notes: "Connected to MySQL using Sequelize ORM",
+        startTime: "2023-11-02T11:00",
+        endTime: "" 
+    }
+];
 
 
 
 
-
+// set localStorage
+if (!localStorage.getItem('tasks')) {
+    localStorage.setItem('tasks', JSON.stringify(sampleTasks));
+}
 
 
 function loadTasks() {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || sampleTasks;
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     const tbody = document.querySelector('#taskTable tbody');
     tbody.innerHTML = '';
 
